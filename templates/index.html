@@ -44,6 +44,8 @@
         <p>Aguardando dados...</p>
     </div>
 
+  
+
     <script>
         var IdCard = "";
 
@@ -54,14 +56,15 @@
                     if (parseInt(data.NumeroIButton) == 0) {
                         const dadosContainer = document.getElementById('dados-rastreamento');
                         dadosContainer.innerHTML = `
-                          <div>
-                                <img src="{{ url_for('static', filename='assets/images/Logo.png') }}" alt="SGTRACK">
-                                <H1>
-                                    Olá, seja bem vindo!
-                                    Aproxime o cartão e se identifique
-                                </H1>
-                                <img src="{{ url_for('static', filename='assets/images/CardImg.png') }}" alt="imagem de cartão">                            
-                          </div>                            
+                            <div style="display: flex; justify-content: center; align-items: center;">
+                                    <img src="{{ url_for('static', filename='assets/images/Logo.png') }}" alt="SGTRACK" style="width: 25vw; max-width: 100px; height: 50px;">
+                                    
+                                    <H3>
+                                        Olá, seja bem vindo!
+                                        Aproxime o cartão e se identifique
+                                    </H3>
+                                    <img src="{{ url_for('static', filename='assets/images/CardImg.png') }}" alt="imagem de cartão" style="width: 25vw; max-width: 100px; height: 50px;">                            
+                            </div>                           
                     `;
                     } else {
                         if (IdCard == "") {
