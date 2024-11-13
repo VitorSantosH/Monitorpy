@@ -6,7 +6,7 @@ import datetime
 import subprocess
 from flask import Flask, render_template, jsonify
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static', static_folder='static')
 
 # Função para listar os dispositivos seriais disponíveis
 def listar_dispositivos_seriais():
