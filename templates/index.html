@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dados de Rastreamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .dados {
+            margin-top: 20px;
+        }
+
+        .dados div {
+            margin: 5px 0;
+        }
+
+        .comumLabel {
+            font-family: Roboto;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 37px;
+            text-align: center;
+            text-underline-position: from-font;
+            text-decoration-skip-ink: none;
+
+        }
+
+        .labelVelocidade {
+            font-family: Roboto;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 37px;
+            text-align: center;
+            text-underline-position: from-font;
+            text-decoration-skip-ink: none;
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Informações do Rastreador</h1>
+    <div id="dados-rastreamento" class="dados">
+        <p>Aguardando dados...</p>
+
+    </div>
+
+    <div style="display: flex; flex-direction: column; width: 100%; max-width: 480px;">
+        <div style="display: flex; justify-content: space-around; align-items: center;">
+            <img src="./assets/LogoMin.png" alt="logo" style="width: 25vw; max-width: 100px; height: 50px;">
+            <div style="display: flex; justify-content: space-around; align-items: center;">
+                <img src="./assets/CardImg.png" alt="imgCard" style="width: 39px; height: 33px;">
+                ${data.NumeroIButton}
+            </div>
+        </div>
+
+        <div style="display: flex;  width: 100%; max-width: 480px;">
+            <div style="width: 50%; display: flex; flex-direction: column;  justify-content: center; align-items: center;">
+                <label class="comumLabel">
+                    Valocidade do veículo
+                </label>
+                <label class="labelVelocidade">
+                    ${data.Velocidade}
+                </label>
+            </div>
+
+            <div style="width: 50%; display: flex; flex-direction: column;  justify-content: center; align-items: center;">
+                <label class="comumLabel">
+                    Velocidade Permitida na Cerca
+                </label>
+                <label class="labelVelocidade">
+                    ${data.VelocidadeMaximaDentroCerca}
+                </label>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+
+        var IdCard = "";
+
+        async function atualizarDados() {
+            fetch('/dados_rastreamento')
+                .then(response => response.json())
+                .then(async data => {
+                    if (parseInt(data.NumeroIButton) == 0) {
+                        const dadosContainer = document.getElementById('dados-rastreamento');
+                        dadosContainer.innerHTML = `
+                          <div>
+                                <img src="./assets/Logo.png" alt="SGTRACK">
+                                <H1>
+                                    Olá, seja bem vindo!
+                                    Aproxime o cartão e se identifique
+                                </H1>
+                                <img src="./assets/CardImg.png" alt="imagem de cartão">                            
+                          </div>                            
+                    `;
+
+                    }
+                    else {
+
+                        if (IdCard == "") {
+
+                            await Swal.fire({
+                                title: 'Seja bem-vindo!',
+                                text: 'Dirija com cuidado',
+                                icon: 'success',
+                                showConfirmButton: false,  // Remove o botão de confirmação
+                                timer: 1500,  // Define o tempo para o alerta desaparecer (1.5 segundos)
+                                timerProgressBar: true,  // Mostra a barra de progresso
+                            });
+
+                            IdCard = data.BloqueioAtivo;
+                        }
+
+                        const dadosContainer = document.getElementById('dados-rastreamento');
+                        dadosContainer.innerHTML = `
+                        <div><strong>Serial Rastreador:</strong> ${data.SerialRastreador}</div>
+                        <div><strong>Data e Hora do Rastreador:</strong> ${data.DataHoraRastreador}</div>
+                        <div><strong>Latitude:</strong> ${data.Latitude}</div>
+                        <div><strong>Longitude:</strong> ${data.Longitude}</div>
+                        <div><strong>Velocidade:</strong> ${data.Velocidade}</div>
+                        <div><strong>Ignicao Ligada:</strong> ${data.IgnicaoLigada}</div>
+                        <div><strong>Bloqueio Ativo:</strong> ${data.BloqueioAtivo}</div>
+                        <div><strong>Numero IButton:</strong> ${data.NumeroIButton}</div>
+                        <div><strong>Temperaturas:</strong> ${data.Temperaturas.join(', ')}</div>
+                    `;
+                    }
+                })
+                .catch(error => console.error('Erro ao obter dados:', error));
+        }
+
+        // Atualizar os dados a cada 0,7 segundos
+        setInterval(atualizarDados, 700);
+    </script>
+
+    <script src="./assets/Swal2teste.js"></script>
+    <script>
+        /* Swal.fire({
+            title: 'Seja bem-vindo!',
+            text: 'Dirija com cuidado',
+            icon: 'success',        
+            showConfirmButton: false,  // Remove o botão de confirmação
+            timer: 1500,  // Define o tempo para o alerta desaparecer (1.5 segundos)
+            timerProgressBar: true,  // Mostra a barra de progresso
+        });
+        */
+    </script>
+</body>
+
+</html>
