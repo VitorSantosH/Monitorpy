@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,6 +39,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div id="dados-rastreamento" class="dados">
@@ -56,15 +58,17 @@
                     if (parseInt(data.NumeroIButton) == 0) {
                         const dadosContainer = document.getElementById('dados-rastreamento');
                         dadosContainer.innerHTML = `
-                            <div style="display: flex; justify-content: center; align-items: center;">
-                                    <img src="{{ url_for('static', filename='assets/images/Logo.png') }}" alt="SGTRACK" style="width: 25vw; max-width: 100px; height: 50px;">
-                                    
-                                    <H3>
-                                        Olá, seja bem vindo!
-                                        Aproxime o cartão e se identifique
-                                    </H3>
-                                    <img src="{{ url_for('static', filename='assets/images/CardImg.png') }}" alt="imagem de cartão" style="width: 25vw; max-width: 100px; height: 50px;">                            
-                            </div>                           
+                             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                <img src="{{ url_for('static', filename='assets/images/Logo.png') }}" alt="SGTRACK"
+                                    style="width: 25vw; max-width: 100px; height: 50px;">
+
+                                <H3>
+                                    Olá, seja bem vindo!
+                                    Aproxime o cartão e se identifique
+                                </H3>
+                                <img src="{{ url_for('static', filename='assets/images/CardImg.png') }}" alt="imagem de cartão"
+                                    style="width: 25vw; max-width: 100px; height: 50px;">
+                            </div>                          
                     `;
                     } else {
                         if (IdCard == "") {
@@ -124,4 +128,5 @@
     <script src="{{ url_for('static', filename='assets/js/Swal2teste.js') }}"></script>
 
 </body>
+
 </html>
