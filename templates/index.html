@@ -71,28 +71,28 @@
                         const dadosContainer = document.getElementById('dados-rastreamento');
                         dadosContainer.innerHTML = `
                                 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <img src="{{ url_for('static', filename='assets/images/Logo.png') }}" alt="SGTRACK" style="width: 40vw; max-width: 180px; height: 65px;">
+                                <img src="{{ url_for('static', filename='assets/images/Logo.png') }}" alt="SGTRACK" style="width: 40vw; max-width: 180px; height: 65px;">
 
-                            <h4 style="display: flex; justify-content: center; flex-direction: column; width: 100%; align-items: center;
-                            font-family: Roboto;
-                            font-size: 24px;
-                            font-weight: 400;
-                            line-height: 40px;
-                            text-align: center;
-                            text-underline-position: from-font;
-                            text-decoration-skip-ink: none;
-                            ">
-                                <span> Olá, seja bem vindo! </span>
-                                <span>
-                                    Aproxime o cartão e se identifique
-                                </span>
-                            </h4>
-                            <img src="{{ url_for('static', filename='assets/images/CardImg.png') }}" alt="imagem de cartão"
-                                style="width: 40vw; max-width: 100px; height: 50px;">
-                        </div>                         
+                                    <h4 style="display: flex; justify-content: center; flex-direction: column; width: 100%; align-items: center;
+                                    font-family: Roboto;
+                                    font-size: 24px;
+                                    font-weight: 400;
+                                    line-height: 40px;
+                                    text-align: center;
+                                    text-underline-position: from-font;
+                                    text-decoration-skip-ink: none;
+                                    ">
+                                        <span> Olá, seja bem vindo! </span>
+                                        <span>
+                                            Aproxime o cartão e se identifique
+                                        </span>
+                                    </h4>
+                                    <img src="{{ url_for('static', filename='assets/images/CardImg.png') }}" alt="imagem de cartão"
+                                        style="width: 40vw; max-width: 100px; height: 50px;">
+                                </div>                         
                     `;
                     } else {
-                        if (IdCard == "") {
+                        if (false) {
                             await Swal.fire({
                                 title: 'Seja bem-vindo!',
                                 text: 'Dirija com cuidado',
