@@ -100,7 +100,9 @@ def abrir_chromium():
             'chromium-browser',
             '--start-fullscreen',
             '--incognito',
-            '--no-sandbox',
+            '--disable-gpu',
+            '--no-sandbox' ,
+            '--remote-debugging-port=9222',
             '--user-data-dir=/tmp/chromium_temp',
             'http://localhost:5000'
         ])
