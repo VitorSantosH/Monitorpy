@@ -100,6 +100,7 @@ def abrir_chromium():
             'chromium-browser',
             '--start-fullscreen',
             '--incognito',
+            '--no-sandbox',
             '--user-data-dir=/tmp/chromium_temp',
             'http://localhost:5000'
         ])
