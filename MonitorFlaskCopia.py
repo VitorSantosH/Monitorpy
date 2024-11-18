@@ -62,7 +62,7 @@ def obter_dados_rastreamento():
         port_path = dispositivos[0]
         try:
             # Conectar ao dispositivo serial
-            ser = serial.Serial(port_path, 19290, timeout=1)
+            ser = serial.Serial(port_path, 19290, timeout=20)
             comando = "#STATUS\n"
             ser.write(comando.encode())
 

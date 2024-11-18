@@ -50,16 +50,16 @@ def interpretar_string(dados):
 def obter_dados_rastreamento():
     dispositivos = listar_dispositivos_seriais()
     if not dispositivos:
-        return "Nenhum dispositivo serial encontrado."
+        return {"error": "Nenhum dispositivo serial encontrado."}
 
     try:
         port_path = dispositivos[0]
         with serial.Serial(port_path, 19290, timeout=1) as ser:
             ser.write("#STATUS\n".encode())
             response = ser.readline().decode('utf-8', errors='ignore').strip()
-            return interpretar_string(response) if response else "Sem dados recebidos."
+            return {"data": interpretar_string(response)} if response else {"error": "Sem dados recebidos."}
     except Exception as e:
-        return f"Erro ao acessar o dispositivo serial: {e}"
+        return {"error": f"Erro ao acessar o dispositivo serial: {e}"}
     
 # Função para iniciar o Chromium em modo tela cheia
 def abrir_chromium():
@@ -83,7 +83,10 @@ def index():
 # Rota para retornar os dados do rastreador como JSON
 @app.route('/dados_rastreamento')
 def dados_rastreamento():
-    return jsonify(obter_dados_rastreamento())
+    resposta = obter_dados_rastreamento()
+    if "error" in resposta:
+        return jsonify(resposta), 400
+    return jsonify(resposta)
 
 # Iniciar a aplicação Flask
 if __name__ == '__main__':
