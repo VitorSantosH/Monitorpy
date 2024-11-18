@@ -65,7 +65,13 @@ def obter_dados_rastreamento():
 def abrir_chromium():
     # Comando para abrir o Chromium em modo fullscreen (F11) com a flag --no-sandbox
     try:
-        subprocess.Popen(['chromium-browser', '--start-fullscreen', '--no-sandbox', 'http://localhost:5000'])
+    #  subprocess.Popen(['chromium-browser', '--start-fullscreen', '--no-sandbox', 'http://localhost:5000'])
+        subprocess.Popen(
+        ['chromium-browser', '--start-fullscreen', '--no-sandbox', 'http://localhost:5000'],
+        stdout=subprocess.PIPE,  # Redireciona a saída padrão
+        stderr=subprocess.PIPE   # Redireciona os erros para evitar mensagens na tela
+        )
+
     except FileNotFoundError:
         print("Erro: O Chromium não foi encontrado. Certifique-se de que ele está instalado.")
 

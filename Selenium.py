@@ -81,6 +81,8 @@ def abrir_navegador():
     # Acessa a página do Flask
     driver.get("http://localhost:5000")
 
+
+
 # Rota principal para exibir a página index
 @app.route('/')
 def index():
