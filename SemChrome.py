@@ -1,9 +1,8 @@
 import os
 import serial
 import datetime
+import subprocess
 from flask import Flask, render_template, jsonify
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
@@ -61,22 +60,14 @@ def obter_dados_rastreamento():
             return interpretar_string(response) if response else "Sem dados recebidos."
     except Exception as e:
         return f"Erro ao acessar o dispositivo serial: {e}"
-
-# Configura o serviço do ChromeDriver
-chromedriver_path = '/usr/bin/chromedriver'
-service = Service(chromedriver_path)
-options = webdriver.ChromeOptions()
-options.add_argument("--disable-gpu")
-options.add_argument("--no-sandbox")
-options.add_argument("--remote-debugging-port=9222")
-options.add_argument("--disable-software-rasterizer")
-options.add_argument("--disable-dev-shm-usage")
-driver = webdriver.Chrome(service=service, options=options)
-
-driver.get("http://localhost:5000")  # Pode ser qualquer URL, como um endereço público ou sua aplicação local.
-
-# Maximiza a janela para tela cheia
-driver.maximize_window()
+    
+# Função para iniciar o Chromium em modo tela cheia
+def abrir_chromium():
+    # Comando para abrir o Chromium em modo fullscreen (F11) com a flag --no-sandbox
+    try:
+        subprocess.Popen(['chromium-browser', '--start-fullscreen', '--no-sandbox', 'http://localhost:5000'])
+    except FileNotFoundError:
+        print("Erro: O Chromium não foi encontrado. Certifique-se de que ele está instalado.")
 
 # Rota principal para exibir a página index
 @app.route('/')
@@ -90,4 +81,5 @@ def dados_rastreamento():
 
 # Iniciar a aplicação Flask
 if __name__ == '__main__':
+    abrir_chromium()  # Abre o Chromium em modo F11
     app.run(host='0.0.0.0', port=5000, debug=False)
