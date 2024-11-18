@@ -68,7 +68,7 @@
                 .then(response => response.json())
                 .then(async data => {                  
                     console.log(data)
-                    let vel = data.VelocidadeMaxCerca || data.VelocidadeMaxMicroCerca || data.VelocidadeMaximaDentroCerca || data.VelocidadeMaximaDentroMicroCerca ;
+                    let vel = data.VelocidadeMaxCerca || data.VelocidadeMaxMicroCerca || data.VelocidadeMaximaDentroCerca || data.VelocidadeMaximaDentroMicroCerca  || 0;
                     const dadosContainer = document.getElementById('dados-rastreamento');
                         dadosContainer.innerHTML = `
                         <div style="display: flex; flex-direction: column; width: 100%; max-width: 480px;">
