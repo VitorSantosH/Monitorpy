@@ -67,7 +67,7 @@
             fetch('/dados_rastreamento')
                 .then(response => response.json())
                 .then(async data => {                  
-
+                    console.log(data)
                     const dadosContainer = document.getElementById('dados-rastreamento');
                         dadosContainer.innerHTML = `
                         <div style="display: flex; flex-direction: column; width: 100%; max-width: 480px;">
@@ -105,9 +105,10 @@
         }
 
         // Atualizar os dados a cada 0,7 segundos
-        setInterval(atualizarDados, 1000);
+        setInterval(atualizarDados, 700);
 
-        if (false) { // parseInt(data.NumeroIButton) == 0
+        /*
+                if (false) { // parseInt(data.NumeroIButton) == 0
                         const dadosContainer = document.getElementById('dados-rastreamento');
                         dadosContainer.innerHTML = `
                                 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
@@ -147,6 +148,8 @@
 
                       
                     }
+        */
+    
 
     </script>
 
