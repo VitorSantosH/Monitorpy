@@ -50,10 +50,7 @@
             text-underline-position: from-font;
             text-decoration-skip-ink: none;
         }
-        #dados-rastreamento div {
-            height: 320px;
-            justify-content: space-evenly;
-        }
+
 
     </style>
 </head>
@@ -76,7 +73,7 @@
                     let vel = data.VelocidadeMaxCerca || data.VelocidadeMaxMicroCerca || data.VelocidadeMaximaDentroCerca || data.VelocidadeMaximaDentroMicroCerca  || 0;
                     const dadosContainer = document.getElementById('dados-rastreamento');
                         dadosContainer.innerHTML = `
-                        <div style="display: flex; flex-direction: column; width: 100%; max-width: 480px;">
+                        <div style="display: flex; flex-direction: column; width: 100%; max-width: 480px;  height: 320px; justify-content: space-evenly;">
                             <div style="display: flex; justify-content: space-around; align-items: center;">
                                 <img src="{{ url_for('static', filename='assets/images/LogoMin.png') }}" alt="logo" style="width: 25vw; max-width: 100px; height: 50px;">
                                 <div style="display: flex; justify-content: space-around; align-items: center;">
@@ -85,7 +82,7 @@
                                 </div>
                             </div>
 
-                            <div style="display: flex;  width: 100%; max-width: 480px;">
+                            <div style="display: flex;  width: 100%; max-width: 480px; ">
                                 <div style="width: 50%; display: flex; flex-direction: column;  justify-content: center; align-items: center;">
                                     <label class="comumLabel">
                                         Vel do veículo
