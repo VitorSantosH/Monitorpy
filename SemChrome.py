@@ -73,6 +73,11 @@ options.add_argument("--disable-software-rasterizer")
 options.add_argument("--disable-dev-shm-usage")
 driver = webdriver.Chrome(service=service, options=options)
 
+driver.get("http://localhost:5000")  # Pode ser qualquer URL, como um endereço público ou sua aplicação local.
+
+# Maximiza a janela para tela cheia
+driver.maximize_window()
+
 # Rota principal para exibir a página index
 @app.route('/')
 def index():
