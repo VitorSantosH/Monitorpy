@@ -72,7 +72,7 @@ def abrir_navegador():
     chrome_options.add_argument("--disable-dev-shm-usage")
 
     # Caminho para o ChromeDriver
-    chromedriver_path = "/path/to/chromedriver"  # Substitua pelo caminho do seu ChromeDriver
+    chromedriver_path = "/usr/bin/chromedriver"  # Substitua pelo caminho do seu ChromeDriver
     service = Service(chromedriver_path)
 
     # Inicializa o WebDriver
