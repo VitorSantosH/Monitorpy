@@ -1,5 +1,5 @@
 import os
-import serial
+from serial import Serial
 import datetime
 import threading
 from flask import Flask, render_template, jsonify
@@ -58,7 +58,7 @@ def obter_dados_rastreamento():
         port_path = dispositivos[0]
         try:
             # Conectar ao dispositivo serial
-            ser = serial.Serial(port_path, 19290, timeout=1)
+            ser = Serial(port_path, 19290, timeout=1)
             comando = "#STATUS\n"
             ser.write(comando.encode())
 
