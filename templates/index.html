@@ -61,6 +61,7 @@
         <p>Aguardando dados...</p>
     </div>
 
+ 
 
     <script>
         var IdCard = "";
@@ -73,6 +74,20 @@
                     console.log(data)
                     let vel = data.VelocidadeMaxCerca  || data.VelocidadeMaxMicroCerca || data.VelocidadeMaximaDentroCerca || data.VelocidadeMaximaDentroMicroCerca  || 0;
                     let velocidadeAtual = data.Velocidade || 0;
+                    if(velocidadeAtual > vel ) {
+                        await Swal.fire({
+                                title: '<h1> <>  ',
+                                text: `   <h4 style="color: red;">LIMITE DE VELOCIDADE EXCEDITO</h4>
+                                        <div  style="display: flex; justify-content: center; flex-direction: column;">
+                                            <h6>Velocidade Permitida de ${vel}KM </h6>
+                                            <h6>Reduza sua velocidade</h6>
+                                        </div>`,
+                                icon: 'warning',
+                                showConfirmButton: false,  // Remove o botão de confirmação
+                                timer: 1500,  // Define o tempo para o alerta desaparecer (1.5 segundos)
+                                timerProgressBar: true,  // Mostra a barra de progresso
+                            });
+                    }
                     const dadosContainer = document.getElementById('dados-rastreamento');
                         dadosContainer.innerHTML = `
                         <div style="display: flex; flex-direction: column; width: 100%; max-width: 480px;  height: 320px; justify-content: space-evenly;">
