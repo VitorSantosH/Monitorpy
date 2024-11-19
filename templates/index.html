@@ -52,14 +52,15 @@
         }
 
         .swal2-popup.custom-popup {
-            max-width: 400px;
+            max-width: 300px;
             /* Define o tamanho máximo */
-            max-height: 300px;
+            max-height: 250px;
             /* Define o tamanho máximo da altura */
             overflow: hidden;
             /* Impede o estouro do conteúdo */
             padding: 15px;
             /* Adiciona um pouco de preenchimento */
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -99,7 +100,7 @@
                             showConfirmButton: false,  // Remove o botão de confirmação
                             timer: 1500,  // Define o tempo para o alerta desaparecer (1.5 segundos)
                             timerProgressBar: true,  // Mostra a barra de progresso
-                            width: '400px',  // Define a largura máxima da janela do alerta
+                            width: '300px',  // Define a largura máxima da janela do alerta
                             heightAuto: false,  // Impede que a altura seja ajustada automaticamente
                             customClass: {
                                 popup: 'custom-popup'  // Adiciona uma classe personalizada para maior controle
@@ -134,7 +135,7 @@
                                         Vel máxima na cerca
                                     </label>
                                     <label class="labelVelocidade">
-                                        ${vel}
+                                        ${vel}KM/h
                                     </label>
                                 </div>
                             </div>
