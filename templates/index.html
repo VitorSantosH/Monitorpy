@@ -51,7 +51,16 @@
             text-decoration-skip-ink: none;
         }
 
-
+        .swal2-popup.custom-popup {
+            max-width: 400px;
+            /* Define o tamanho máximo */
+            max-height: 300px;
+            /* Define o tamanho máximo da altura */
+            overflow: hidden;
+            /* Impede o estouro do conteúdo */
+            padding: 15px;
+            /* Adiciona um pouco de preenchimento */
+        }
     </style>
 </head>
 
@@ -61,7 +70,7 @@
         <p>Aguardando dados...</p>
     </div>
 
- 
+
 
     <script>
         var IdCard = "";
@@ -69,33 +78,44 @@
         async function atualizarDados() {
             fetch('/dados_rastreamento')
                 .then(response => response.json())
-                .then(async response => { 
-                    let data = response.data                 
+                .then(async response => {
+                    let data = response.data
                     console.log(data)
-                    let vel = data.VelocidadeMaxCerca  || data.VelocidadeMaxMicroCerca || data.VelocidadeMaximaDentroCerca || data.VelocidadeMaximaDentroMicroCerca  || 0;
+                    let vel = data.VelocidadeMaxCerca || data.VelocidadeMaxMicroCerca || data.VelocidadeMaximaDentroCerca || data.VelocidadeMaximaDentroMicroCerca || 0;
                     let velocidadeAtual = data.Velocidade || 0;
-                    if(velocidadeAtual > vel ) {
+
+                    if (velocidadeAtual > vel) {
                         await Swal.fire({
-                                title: '<h1> <>  ',
-                                text: `   <h4 style="color: red;">LIMITE DE VELOCIDADE EXCEDITO</h4>
-                                        <div  style="display: flex; justify-content: center; flex-direction: column;">
-                                            <h6>Velocidade Permitida de ${vel}KM </h6>
-                                            <h6>Reduza sua velocidade</h6>
-                                        </div>`,
-                                icon: 'warning',
-                                showConfirmButton: false,  // Remove o botão de confirmação
-                                timer: 1500,  // Define o tempo para o alerta desaparecer (1.5 segundos)
-                                timerProgressBar: true,  // Mostra a barra de progresso
-                            });
+                            title: '<h1><strong>ALERTA DE VELOCIDADE</strong></h1>',
+                            text: '',
+                            icon: 'warning',
+                            html: `
+                                    <div style="display: flex; justify-content: center; flex-direction: column; text-align: center;">
+                                        <h4 style="color: red;">LIMITE DE VELOCIDADE EXCEDIDO</h4>
+                                        <h6>Velocidade Permitida de ${vel} KM/h</h6>
+                                        <h6>Reduza sua velocidade!</h6>
+                                    </div>
+                                `,  // Utiliza a opção 'html' para renderizar conteúdo HTML
+                            showConfirmButton: false,  // Remove o botão de confirmação
+                            timer: 1500,  // Define o tempo para o alerta desaparecer (1.5 segundos)
+                            timerProgressBar: true,  // Mostra a barra de progresso
+                            width: '400px',  // Define a largura máxima da janela do alerta
+                            heightAuto: false,  // Impede que a altura seja ajustada automaticamente
+                            customClass: {
+                                popup: 'custom-popup'  // Adiciona uma classe personalizada para maior controle
+                            }
+                        });
                     }
+
+
                     const dadosContainer = document.getElementById('dados-rastreamento');
-                        dadosContainer.innerHTML = `
+                    dadosContainer.innerHTML = `
                         <div style="display: flex; flex-direction: column; width: 100%; max-width: 480px;  height: 320px; justify-content: space-evenly;">
                             <div style="display: flex;  justify-content: space-around; align-items: center;">
                                 <img src="{{ url_for('static', filename='assets/images/LogoMin.png') }}" alt="logo" style=" width: 25vw; max-width: 140px;">
                                 <div style="display: flex; justify-content: space-around; align-items: center;">
                                     <img src="{{ url_for('static', filename='assets/images/CardImg.png') }}" alt="imgCard" style="width: 39px; height: 33px;">
-                                    ${data.NumeroIButton}
+                                    ${data.NumeroIButton}KM/h
                                 </div>
                             </div>
 
@@ -105,7 +125,7 @@
                                         Vel do veículo
                                     </label>
                                     <label class="labelVelocidade">
-                                        ${velocidadeAtual}
+                                        ${velocidadeAtual}KM/h
                                     </label>
                                 </div>
 
@@ -169,7 +189,7 @@
                       
                     }
         */
-    
+
 
     </script>
 

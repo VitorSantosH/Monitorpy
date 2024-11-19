@@ -108,5 +108,5 @@ def dados_rastreamento():
 
 # Iniciar a aplicação Flask
 if __name__ == '__main__':
-    abrir_chromium()  # Abre o Chromium em modo F11
+    #abrir_chromium()  # Abre o Chromium em modo F11
     app.run(host='0.0.0.0', port=5000, debug=False)
