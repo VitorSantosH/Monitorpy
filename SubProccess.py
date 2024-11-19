@@ -1,6 +1,7 @@
 import os
 import serial
 import datetime
+import requests
 import subprocess
 from flask import Flask, render_template, jsonify
 
@@ -61,19 +62,36 @@ def obter_dados_rastreamento():
     except Exception as e:
         return {"error": f"Erro ao acessar o dispositivo serial: {e}"}
     
-# Função para iniciar o Chromium em modo tela cheia
 def abrir_chromium():
-    # Comando para abrir o Chromium em modo fullscreen (F11) com a flag --no-sandbox
+    # Verificar se o servidor Flask está respondendo antes de abrir o navegador
     try:
-    #  subprocess.Popen(['chromium-browser', '--start-fullscreen', '--no-sandbox', 'http://localhost:5000'])
-        subprocess.Popen(
-        ['chromium-browser', '--start-fullscreen', '--no-sandbox', 'http://localhost:5000'],
-        stdout=subprocess.PIPE,  # Redireciona a saída padrão
-        stderr=subprocess.PIPE   # Redireciona os erros para evitar mensagens na tela
-        )
+        response = requests.get('http://localhost:5000')
+        if response.status_code == 200:
+            print("Servidor Flask está rodando, abrindo o navegador...")
 
-    except FileNotFoundError:
-        print("Erro: O Chromium não foi encontrado. Certifique-se de que ele está instalado.")
+            try:
+                # Tente abrir o Chromium
+                process = subprocess.Popen(
+                    ['chromium-browser', '--start-fullscreen', '--no-sandbox', 'http://localhost:5000'],
+                    stdout=subprocess.PIPE,  # Redireciona a saída padrão
+                    stderr=subprocess.PIPE   # Redireciona os erros
+                )
+
+                # Captura a saída de erro
+                stdout, stderr = process.communicate()
+                if stderr:
+                    print("Erros encontrados:", stderr.decode())
+                else:
+                    print("Navegador aberto com sucesso.")
+
+            except Exception as e:
+                print(f"Erro ao abrir o navegador: {e}")
+
+        else:
+            print(f"Servidor Flask não está respondendo. Status: {response.status_code}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"Erro ao conectar ao servidor Flask: {e}")
 
 # Rota principal para exibir a página index
 @app.route('/')
