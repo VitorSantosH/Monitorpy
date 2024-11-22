@@ -68,7 +68,7 @@
             /* Define o contexto de posicionamento para os filhos absolutos */
             width: 100%;
             /* Ajuste conforme necessário */
-            height: 100%;          
+            height: 100%;
         }
 
         .filho {
@@ -98,11 +98,12 @@
     </div>
 
 
- 
+
 
     <script>
         var IdCard = "";
         const intervalo = 2000;
+        var alertaVelocidade = false;
 
         async function atualizarDados() {
             fetch('/dados_rastreamento')
@@ -111,31 +112,22 @@
                     let data = response.data
                     console.log(data)
                     let vel = data.VelocidadeMaxCerca || data.VelocidadeMaxMicroCerca || data.VelocidadeMaximaDentroCerca || data.VelocidadeMaximaDentroMicroCerca || 0;
-                    let velocidadeAtual =  data.Velocidade || 0;
+                    let velocidadeAtual = data.Velocidade || 0;
 
-                    if (false) {
-                        await Swal.fire({
-                            title: '<h1><strong>ALERTA DE VELOCIDADE</strong></h1>',
-                            text: '',
-                            icon: 'warning',
-                            html: `
-                                    <div style="display: flex; justify-content: center; flex-direction: column; text-align: center;">
-                                        <h4 style="color: red;">LIMITE DE VELOCIDADE EXCEDIDO</h4>
-                                        <h6>Velocidade Permitida de ${vel} KM/h</h6>
-                                        <h6>Reduza sua velocidade!</h6>
-                                    </div>
-                                `,  // Utiliza a opção 'html' para renderizar conteúdo HTML
-                            showConfirmButton: false,  // Remove o botão de confirmação
-                            timer: 1500,  // Define o tempo para o alerta desaparecer (1.5 segundos)
-                            timerProgressBar: true,  // Mostra a barra de progresso
-                            width: '300px',  // Define a largura máxima da janela do alerta
-                            heightAuto: false,  // Impede que a altura seja ajustada automaticamente
-                            customClass: {
-                                popup: 'custom-popup'  // Adiciona uma classe personalizada para maior controle
-                            }
-                        });
+                    if (velocidadeAtual > vel && !alertaVelocidade) {
+
+                        let audioPath = "{{ url_for('static', filename='assets/audios/04-Velocidade.mp3') }}";
+                        let audio = new Audio(audioPath);
+                        // Tocar o áudio
+                        audio.play();
+                        // Exibir uma mensagem ou realizar outras ações
+                        console.log('Alerta de velocidade!');
+                        alertaVelocidade = true;
+                    } 
+
+                    if (velocidadeAtual <= vel) {
+                        alertaVelocidade = false;
                     }
-
 
                     const dadosContainer = document.getElementById('dados-rastreamento');
                     dadosContainer.innerHTML = `
@@ -157,7 +149,7 @@
 
                             <div style="display: flex;  width: 100%; max-width: 480px; ">
                                 ${velocidadeAtual > vel ?
-                                   `<div class="filho" id="DivAlerta" >
+                            `<div class="filho" id="DivAlerta" >
                                         <h3 style="color: red;">LIMITE DE VELOCIDADE EXCEDIDO</h4>
                                         <h3 >
                                             <span>Velocidade permitida de <strong> ${vel} KM/h</strong> </span>
