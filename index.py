@@ -55,7 +55,7 @@ def obter_dados_rastreamento():
 
     try:
         port_path = dispositivos[0]
-        with serial.Serial(port_path, 19290, timeout=1) as ser:
+        with serial.Serial(port_path, 115200, timeout=1) as ser:
             ser.write("#STATUS\n".encode())
             response = ser.readline().decode('utf-8', errors='ignore').strip()
             return {"data": interpretar_string(response)} if response else {"error": "Sem dados recebidos."}

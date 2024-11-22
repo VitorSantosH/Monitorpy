@@ -75,6 +75,7 @@
 
     <script>
         var IdCard = "";
+        const intervalo = 2000;
 
         async function atualizarDados() {
             fetch('/dados_rastreamento')
@@ -129,7 +130,7 @@
 
                             <div style="display: flex;  width: 100%; max-width: 480px; ">
                                 ${velocidadeAtual > vel ?
-                            `  <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; border-radius: 15px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                            `   <div id="DivAlerta" style="display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; border-radius: 15px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
                                         <h4 style="color: red;">LIMITE DE VELOCIDADE EXCEDIDO</h4>
                                         <h6>Velocidade Permitida de ${vel} KM/h</h6>
                                         <h6>Reduza sua velocidade!</h6>
@@ -155,6 +156,11 @@
                             </div>
                         </div>
                     `;
+
+                    if(velocidadeAtual > vel ) {
+                        ProgramarLimpeza();
+                    }
+                    
                 })
                 .catch(error => console.error('Erro ao obter dados:', error));
         }
@@ -162,48 +168,24 @@
         // Atualizar os dados a cada 0,7 segundos
         setInterval(atualizarDados, 800);
 
-        /*
-                if (false) { // parseInt(data.NumeroIButton) == 0
-                        const dadosContainer = document.getElementById('dados-rastreamento');
-                        dadosContainer.innerHTML = `
-                                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                                <img src="{{ url_for('static', filename='assets/images/Logo.png') }}" alt="SGTRACK" style="width: 40vw; max-width: 180px; height: 65px;">
+        function ApagarAlerta() {
+            try {
+                let DivAlerta = document.getElementById("DivAlerta");
+                DivAlerta.remove();
+            } catch (error) {
+                console.log(error)
+            }
+        }
 
-                                    <h4 style="display: flex; justify-content: center; flex-direction: column; width: 100%; align-items: center;
-                                    font-family: Roboto;
-                                    font-size: 24px;
-                                    font-weight: 400;
-                                    line-height: 40px;
-                                    text-align: center;
-                                    text-underline-position: from-font;
-                                    text-decoration-skip-ink: none;
-                                    ">
-                                        <span> Olá, seja bem vindo! </span>
-                                        <span>
-                                            Aproxime o cartão e se identifique
-                                        </span>
-                                    </h4>
-                                    <img src="{{ url_for('static', filename='assets/images/CardImg.png') }}" alt="imagem de cartão"
-                                        style="width: 40vw; max-width: 100px; height: 50px;">
-                                </div>                         
-                    `;
-                    } else {
-                        if (false) {
-                            await Swal.fire({
-                                title: 'Seja bem-vindo!',
-                                text: 'Dirija com cuidado',
-                                icon: 'success',
-                                showConfirmButton: false,  // Remove o botão de confirmação
-                                timer: 1500,  // Define o tempo para o alerta desaparecer (1.5 segundos)
-                                timerProgressBar: true,  // Mostra a barra de progresso
-                            });
+        function ProgramarLimpeza() {
+            // Configura a execução repetitiva
+            const id = setInterval(ApagarAlerta, intervalo);
 
-                            IdCard = data.BloqueioAtivo;
-                        }
-
-                      
-                    }
-        */
+            setTimeout(() => {
+                clearInterval(id);
+                console.log("Execução interrompida.");
+            }, 30000);
+        }
 
 
     </script>
