@@ -135,7 +135,7 @@
                     const dadosContainer = document.getElementById('dados-rastreamento');
                     dadosContainer.innerHTML = `
                            
-                        <div class="pai" style="display: flex; flex-direction: column; width: 100%; max-width: 480px;  height: 320px; justify-content: space-evenly;">
+                        <div class="pai" style="display: flex; flex-direction: column; width: 100%; max-width: 480px;  height: 320px; justify-content: flex-start;">
 
                             <div style="display: flex; padding: 0 1rem; justify-content: end;">
 
@@ -157,7 +157,7 @@
 
                             </div>
 
-                            <div style="display: flex;  justify-content: space-around; align-items: center;">                                                         
+                            <div style="display: flex;  justify-content: space-around; align-items: center; margin-top: 2rem;">                                                         
                                 <img src="{{ url_for('static', filename='assets/images/LogoMin.png') }}" alt="logo" style=" width: 25vw; max-width: 140px;">
                                 <div style="display: flex; justify-content: space-around; align-items: center;">                                        
                                     <img src="{{ url_for('static', filename='assets/images/CardImg.png') }}" alt="imgCard" style="width: 39px; height: 33px;">
@@ -165,26 +165,25 @@
                                 </div>
                             </div>
 
-                            <div style="display: flex;  width: 100%; max-width: 480px; ">
+                            <div style="display: flex;  width: 100%; max-width: 480px; margin-top: 2rem; ">
                                 ${velocidadeAtual > vel ?
-                            `<div class="filho" id="DivAlerta" >
-                                        <h3 style="color: red;">LIMITE DE VELOCIDADE EXCEDIDO</h4>
-                                        <h3 >
-                                            <span>Velocidade permitida de <strong> ${vel} KM/h</strong> </span>
-                                            <span>Velocidade atual de <strong> ${velocidadeAtual} KM/h</strong> </span>
-                                        </h3>
-                                        <h3><strong style="color: red;"> Reduza </strong>  sua velocidade!</h3>
-                                    </div>
-                                    `: ``} 
+                                `<div class="filho" id="DivAlerta" >
+                                            <h3 style="color: red;">LIMITE DE VELOCIDADE EXCEDIDO</h4>
+                                            <h3 >
+                                                <span>Velocidade permitida de <strong> ${vel} KM/h</strong> </span>
+                                                <span>Velocidade atual de <strong tyle="color: red;"> ${velocidadeAtual} KM/h</strong> </span>
+                                            </h3>
+                                            <h3><strong style="color: red;"> Reduza </strong>  sua velocidade!</h3>
+                                        </div>
+                                `: ``} 
                                     
-                                    <div style="width: 50%; display: flex; flex-direction: column;  justify-content: center; align-items: center;">
+                                <div style="width: 50%; display: flex; flex-direction: column;  justify-content: center; align-items: center;">
                                     <label class="comumLabel">
                                         Vel do veículo
                                     </label>
                                     <label class="labelVelocidade">
                                         ${velocidadeAtual}KM/h
-                                    </label>
-
+                                    </label>              
                                 </div>
 
                                 <div style="width: 50%; display: flex; flex-direction: column;  justify-content: center; align-items: center;">
