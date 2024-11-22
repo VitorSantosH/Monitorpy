@@ -160,13 +160,13 @@
                     if(velocidadeAtual > vel ) {
                         ProgramarLimpeza();
                     }
-                    
+
                 })
                 .catch(error => console.error('Erro ao obter dados:', error));
         }
 
         // Atualizar os dados a cada 0,7 segundos
-        setInterval(atualizarDados, 800);
+        setInterval(atualizarDados, 300);
 
         function ApagarAlerta() {
             try {
