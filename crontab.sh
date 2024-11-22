@@ -38,3 +38,4 @@
 # E O USUARIO QUE INICIAR A MAQUINA TEM QUE TER ESSA PERMISSÃO
 # definir audio para p2 amixer cset numid=3 1
 # testar audio speaker-test -D plughw:1,0 -t wav
+# desativer economia de energia da tela sudo nano /etc/lightdm/lightdm.conf
