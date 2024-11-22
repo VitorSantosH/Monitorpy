@@ -45,7 +45,8 @@ def interpretar_string(dados):
         "SensoresStatus": [int(partes[i]) for i in range(44, 50)],
         "VelocidadeMaxCerca": int(partes[50]),
         "VelocidadeMaxMicroCerca": int(partes[51]),
-        "dadosBrutos": dados
+        "dadosBrutos": dados,
+        "chuva":  int(partes[46])
     }
 
 # Função para obter os dados do rastreador

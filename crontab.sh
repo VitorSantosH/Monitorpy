@@ -40,3 +40,7 @@
 # testar audio speaker-test -D plughw:1,0 -t wav
 # desativer economia de energia da tela sudo nano /etc/lightdm/lightdm.conf
 # arquivo para ignorar ou ativar o mouse sudo nano /usr/share/X11/xorg.conf.d/50-invisible-cursor.conf
+# aumentar volume audio amixer set 'Master' unmute
+# amixer set 'Master' 100%
+# amixer sset 'Master' 100% unmute
+
