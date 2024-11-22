@@ -110,7 +110,7 @@
                     let data = response.data
                     console.log(data)
                     let vel = data.VelocidadeMaxCerca || data.VelocidadeMaxMicroCerca || data.VelocidadeMaximaDentroCerca || data.VelocidadeMaximaDentroMicroCerca || 0;
-                   // let velocidadeAtual = vel + 1 // data.Velocidade || 0;
+                    let velocidadeAtual =  data.Velocidade || 0;
 
                     if (false) {
                         await Swal.fire({
