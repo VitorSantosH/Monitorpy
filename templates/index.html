@@ -62,6 +62,37 @@
             /* Adiciona um pouco de preenchimento */
             box-sizing: border-box;
         }
+
+        .pai {
+            position: relative;
+            /* Define o contexto de posicionamento para os filhos absolutos */
+            width: 100%;
+            /* Ajuste conforme necessário */
+            height: 100%;
+            /* Ajuste conforme necessário */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        .filho {
+            position: absolute;
+            /* Posicionamento absoluto dentro do contexto do pai */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 
@@ -70,7 +101,7 @@
     <div id="dados-rastreamento" class="dados">
         <p>Aguardando dados...</p>
     </div>
-  
+
 
 
     <script>
@@ -84,7 +115,7 @@
                     let data = response.data
                     console.log(data)
                     let vel = data.VelocidadeMaxCerca || data.VelocidadeMaxMicroCerca || data.VelocidadeMaximaDentroCerca || data.VelocidadeMaximaDentroMicroCerca || 0;
-                    let velocidadeAtual = vel +1 // data.Velocidade || 0;
+                    let velocidadeAtual = vel + 1 // data.Velocidade || 0;
 
                     if (false) {
                         await Swal.fire({
@@ -113,7 +144,7 @@
                     const dadosContainer = document.getElementById('dados-rastreamento');
                     dadosContainer.innerHTML = `
                            
-                        <div style="display: flex; flex-direction: column; width: 100%; max-width: 480px;  height: 320px; justify-content: space-evenly;">
+                        <div class="pai" style="display: flex; flex-direction: column; width: 100%; max-width: 480px;  height: 320px; justify-content: space-evenly;">
                             <div style="display: flex;  justify-content: space-around; align-items: center;">
                                                          
                                 <img src="{{ url_for('static', filename='assets/images/LogoMin.png') }}" alt="logo" style=" width: 25vw; max-width: 140px;">
@@ -130,7 +161,7 @@
 
                             <div style="display: flex;  width: 100%; max-width: 480px; ">
                                 ${velocidadeAtual > vel ?
-                                   `<div id="DivAlerta" style="display: flex; justify-content: center; width: 70%; align-items: center; flex-direction: column; text-align: center; position: relative; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; border-radius: 15px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                            `<div class="filho" id="DivAlerta" style="display: flex; justify-content: center; width: 70%; align-items: center; flex-direction: column; text-align: center; position: relative; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; border-radius: 15px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
                                         <h3 style="color: red;">LIMITE DE VELOCIDADE EXCEDIDO</h4>
                                         <h5>Velocidade Permitida de ${vel} KM/h</h6>
                                         <h5>Reduza sua velocidade!</h6>
@@ -159,8 +190,8 @@
                         </div>
                     `;
 
-                    if(velocidadeAtual > vel ) {
-                      //  ProgramarLimpeza();
+                    if (velocidadeAtual > vel) {
+                        //  ProgramarLimpeza();
                     }
 
                 })
@@ -168,7 +199,7 @@
         }
 
         // Atualizar os dados a cada 0,7 segundos
-        setInterval(atualizarDados, 300);
+        setInterval(atualizarDados, 500);
 
         function ApagarAlerta() {
             try {
