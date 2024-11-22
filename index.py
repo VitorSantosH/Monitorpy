@@ -3,6 +3,7 @@ import serial
 import datetime
 import requests
 import subprocess
+import binascii
 from flask import Flask, render_template, jsonify
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
@@ -23,7 +24,7 @@ def interpretar_string(dados):
         "Velocidade": int(partes[6]),
         "IgnicaoLigada": partes[10] == "1",
         "BloqueioAtivo": partes[11] == "1",
-        "NumeroIButton": partes[12],
+        "NumeroIButton": hex_to_integer(partes[12]),
         "APM": int(partes[13]),
         "Horimetros": [int(partes[i]) for i in range(14, 20)],
         "HorimetroSensorPulsos1": int(partes[20]),
@@ -92,6 +93,15 @@ def abrir_chromium():
 
     except requests.exceptions.RequestException as e:
         print(f"Erro ao conectar ao servidor Flask: {e}")
+
+def hex_to_integer(hex_string):
+    # Remove zeros à esquerda
+    trimmed_hex = hex_string.lstrip('0')
+    # Converte o hexadecimal em bytes
+    byte_array = bytearray.fromhex(trimmed_hex)
+    # Converte os bytes para inteiro
+    result = int.from_bytes(byte_array, byteorder='big')
+    return result
 
 # Rota principal para exibir a página index
 @app.route('/')
