@@ -41,7 +41,7 @@ echo "Ambiente gráfico e internet prontos. Iniciando serviço..." >> /tmp/inici
 
 # Seu comando ou aplicação aqui
 python3 /home/sgtrack/Documents/Monitorpy/index.py >> /tmp/iniciar_servico.log 2>&1 &
-chromium-browser --disable-gpu --no-sandbox --no-zygote --start-maximized --kiosk --lang=pt-BR "http://localhost:5000" >> /tmp/iniciar_servico.log 2>&1 &
+chromium-browser --disable-gpu --no-sandbox --no-zygote --start-maximized --kiosk --lang=pt-BR --autoplay-policy=no-user-gesture-required "http://localhost:5000" >> /tmp/iniciar_servico.log 2>&1 &
 
 # Aguarda 5 segundos para garantir que o Chromium tenha iniciado
 sleep 4
