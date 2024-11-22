@@ -97,6 +97,7 @@
         <p>Aguardando dados...</p>
     </div>
 
+
  
 
     <script>
@@ -158,8 +159,11 @@
                                 ${velocidadeAtual > vel ?
                                    `<div class="filho" id="DivAlerta" >
                                         <h3 style="color: red;">LIMITE DE VELOCIDADE EXCEDIDO</h4>
-                                        <h5>Velocidade Permitida de <strong> ${vel} KM/h</strong> </h6>
-                                        <h5><strong style="color: red;"> Reduza </strong>  sua velocidade!</h6>
+                                        <h3 >
+                                            <span>Velocidade permitida de <strong> ${vel} KM/h</strong> </span>
+                                            <span>Velocidade atual de <strong> ${velocidadeAtual} KM/h</strong> </span>
+                                        </h3>
+                                        <h3><strong style="color: red;"> Reduza </strong>  sua velocidade!</h3>
                                     </div>
                                     `: ``} 
                                     
