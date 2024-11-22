@@ -46,7 +46,9 @@ def interpretar_string(dados):
         "VelocidadeMaxCerca": int(partes[50]),
         "VelocidadeMaxMicroCerca": int(partes[51]),
         "dadosBrutos": dados,
-        "chuva":  int(partes[46])
+        "chuva":  int(partes[46]),
+        "chuva2" :  int(partes[47]),
+        "chuva3":  int(partes[45])
     }
 
 # Função para obter os dados do rastreador
